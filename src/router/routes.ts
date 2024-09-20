@@ -3,18 +3,30 @@ import type { RouteRecordRaw } from 'vue-router';
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    name: 'home',
-    component: import('@/views/HomePage.vue')
+    component: import('@/layouts/MainLayout.vue'),
+    children: [
+      {
+        path: '',
+        name: 'home',
+        component: import('@/views/HomePage.vue')
+      }
+    ]
   },
   {
-    path: '/login',
-    name: 'login',
-    component: import('@/views/LoginPage.vue')
-  },
-  {
-    path: '/register',
-    name: 'register',
-    component: import('@/views/RegisterPage.vue')
+    path: '/',
+    component: () => import('@/layouts/AuthLayout.vue'),
+    children: [
+      {
+        path: '/login',
+        name: 'login',
+        component: import('@/views/LoginPage.vue')
+      },
+      {
+        path: '/register',
+        name: 'register',
+        component: import('@/views/RegisterPage.vue')
+      }
+    ]
   }
 ];
 
